@@ -453,13 +453,16 @@ h6,
   }
 
   /* Sider becomes drawer on mobile */
-  .ant-layout-sider {
+  .ant-layout .ant-layout-sider {
     display: none !important;
   }
 
   /* Content takes full width */
   .ant-layout-content {
     padding: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 !important;
   }
 
   /* Portfolio value smaller on mobile */
