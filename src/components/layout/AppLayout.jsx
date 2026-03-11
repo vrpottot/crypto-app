@@ -1,4 +1,4 @@
-import { Layout, Spin } from 'antd'
+import { Layout } from 'antd'
 import AppHeader from './AppHeader'
 import AppSider from './AppSider'
 import AppContent from './AppContent'
@@ -9,11 +9,16 @@ export default function AppLayout() {
   const { loading } = useContext(CryptoContext)
 
   if (loading) {
-    return <Spin fullscreen />
+    return (
+      <div className="premium-loader">
+        <div className="premium-loader-ring" />
+        <span className="premium-loader-text">Loading Portfolio</span>
+      </div>
+    )
   }
 
   return (
-    <Layout>
+    <Layout className="fade-in">
       <AppHeader />
       <Layout>
         <AppSider />

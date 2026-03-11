@@ -32,5 +32,14 @@ export default function AssetsTable() {
     amount: a.amount,
   }))
 
-  return <Table pagination={false} columns={columns} dataSource={data} />
+  return (
+    <div className="glass-card" style={{ padding: '1rem', overflowX: 'auto' }}>
+      <Table 
+        pagination={false} 
+        columns={columns} 
+        dataSource={data}
+        style={{ background: 'transparent' }}
+      />
+    </div>
+  )
 }

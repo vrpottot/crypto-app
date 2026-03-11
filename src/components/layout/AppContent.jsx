@@ -7,8 +7,7 @@ const contentStyle = {
   textAlign: 'center',
   minHeight: 'calc(100vh - 60px)',
   color: '#fff',
-  backgroundColor: '#001529',
-  padding: '1rem',
+  padding: '2rem 2.5rem',
 }
 
 export default function AppContent() {
@@ -19,16 +18,17 @@ export default function AppContent() {
     return acc
   }, {})
 
+  const totalValue = assets
+    .map((asset) => asset.amount * cryptoPriceMap[asset.id])
+    .reduce((acc, v) => (acc += v), 0)
+    .toFixed(2)
+
   return (
     <Layout.Content style={contentStyle}>
-      <Typography.Title level={3} style={{ textAlign: 'left', color: '#fff' }}>
-        Portfolio:{' '}
-        {assets
-          .map((asset) => asset.amount * cryptoPriceMap[asset.id])
-          .reduce((acc, v) => (acc += v), 0)
-          .toFixed(2)}
-        $
-      </Typography.Title>
+      <div style={{ textAlign: 'left', marginBottom: '2rem' }}>
+        <div className="portfolio-label">Total Portfolio Value</div>
+        <span className="portfolio-value">${totalValue}</span>
+      </div>
       <PortfolioChart />
       <AssetsTable />
     </Layout.Content>

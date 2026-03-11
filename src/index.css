@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1025 40%, #0d1b2a 70%, #0f0c29 100%);
+  --glass-bg: rgba(20, 20, 35, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-blur: blur(20px);
+  --text-primary: #f0f0f5;
+  --text-secondary: rgba(200, 200, 220, 0.7);
+  --accent-purple: #7b2cbf;
+  --accent-blue: #3a86ff;
+  --gradient-primary: linear-gradient(135deg, #7b2cbf, #3a86ff);
+  --gradient-warm: linear-gradient(135deg, #f72585, #b5179e);
+  --success-color: #00e676;
+  --danger-color: #ff5252;
+  --neon-purple-glow: 0 0 20px rgba(123, 44, 191, 0.4), 0 0 60px rgba(123, 44, 191, 0.15);
+  --neon-blue-glow: 0 0 20px rgba(58, 134, 255, 0.3), 0 0 60px rgba(58, 134, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* ===== Animated floating orbs background ===== */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  z-index: -1;
+  pointer-events: none;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
+
+body::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(123, 44, 191, 0.6), transparent 70%);
+  top: -150px;
+  right: -100px;
+}
+
+body::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(58, 134, 255, 0.5), transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  animation-delay: -6s;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+
+  100% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+/* ===== Glassmorphism Utilities ===== */
+.glass-container {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+.glass-card {
+  background: rgba(25, 25, 42, 0.5) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 16px !important;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle shimmer line on top of cards */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(123, 44, 191, 0.5), rgba(58, 134, 255, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(123, 44, 191, 0.2), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(123, 44, 191, 0.25) !important;
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* ===== AntDesign Layout Reset ===== */
+.ant-layout {
+  background: transparent !important;
+}
+
+.ant-layout-sider {
+  background: transparent !important;
+}
+
+/* ===== Typography ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.ant-typography {
+  color: var(--text-primary) !important;
+  letter-spacing: -0.02em;
+}
+
+.ant-statistic-title {
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ant-statistic-content-value {
+  font-weight: 700 !important;
+}
+
+/* ===== Portfolio Value Glow ===== */
+.portfolio-value {
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 20px rgba(123, 44, 191, 0.3));
+  display: inline-block;
+}
+
+.portfolio-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+/* ===== Gradient Buttons ===== */
+.ant-btn-primary {
+  background: var(--gradient-primary) !important;
+  border: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 16px rgba(123, 44, 191, 0.35) !important;
+  transition: all 0.3s ease !important;
+  border-radius: 10px !important;
+  height: 38px !important;
+  padding: 0 24px !important;
+}
+
+.ant-btn-primary:hover {
+  box-shadow: 0 6px 24px rgba(123, 44, 191, 0.55) !important;
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.ant-btn-primary:active {
+  transform: translateY(0);
+  filter: brightness(0.95);
+}
+
+/* ===== AntDesign Table Overrides ===== */
+.ant-table,
+.ant-table-container,
+.ant-table-cell,
+.ant-table-thead>tr>th {
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.04) !important;
+  color: var(--text-primary) !important;
+}
+
+.ant-table-thead>tr>th {
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.08em !important;
+  color: var(--text-secondary) !important;
+}
+
+.ant-table-tbody>tr>td {
+  border-bottom-color: rgba(255, 255, 255, 0.04) !important;
+  transition: background 0.2s ease;
+}
+
+.ant-table-tbody>tr:hover>td {
+  background: rgba(123, 44, 191, 0.08) !important;
+}
+
+.ant-table-column-sorter {
+  color: var(--text-secondary) !important;
+}
+
+/* ===== Modal & Drawer ===== */
+.ant-modal-content,
+.ant-drawer-content {
+  background: rgba(15, 15, 30, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), var(--neon-purple-glow) !important;
+  border-radius: 20px !important;
+}
+
+.ant-drawer-header,
+.ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.ant-modal-close-icon {
+  color: var(--text-secondary) !important;
+  transition: color 0.2s ease;
+}
+
+.ant-modal-close-icon:hover {
+  color: var(--text-primary) !important;
+}
+
+/* ===== Select Dropdown ===== */
+.ant-select-dropdown {
+  background: rgba(20, 20, 38, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ant-select-item-option-active {
+  background: rgba(123, 44, 191, 0.15) !important;
+}
+
+.ant-select-item-option-selected {
+  background: rgba(123, 44, 191, 0.25) !important;
+}
+
+.ant-select-selector {
+  border-radius: 10px !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-select-selector:hover,
+.ant-select-focused .ant-select-selector {
+  border-color: var(--accent-purple) !important;
+  box-shadow: 0 0 0 2px rgba(123, 44, 191, 0.2) !important;
+}
+
+/* ===== Input Overrides ===== */
+.ant-input-number,
+.ant-picker {
+  border-radius: 10px !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-input-number:hover,
+.ant-input-number-focused,
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: var(--accent-purple) !important;
+  box-shadow: 0 0 0 2px rgba(123, 44, 191, 0.2) !important;
+}
+
+/* ===== Tags (up/down) ===== */
+.ant-tag-green {
+  background: rgba(0, 230, 118, 0.12) !important;
+  border-color: rgba(0, 230, 118, 0.3) !important;
+  color: var(--success-color) !important;
+}
+
+.ant-tag-red {
+  background: rgba(255, 82, 82, 0.12) !important;
+  border-color: rgba(255, 82, 82, 0.3) !important;
+  color: var(--danger-color) !important;
+}
+
+/* ===== Divider ===== */
+.ant-divider {
+  border-block-start-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ===== Form Labels ===== */
+.ant-form-item-label>label {
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+}
+
+/* ===== Custom Loading Spinner ===== */
+.premium-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 24px;
+}
+
+.premium-loader-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--accent-purple);
+  border-right-color: var(--accent-blue);
+  animation: spinRing 1s linear infinite;
+  box-shadow: 0 0 24px rgba(123, 44, 191, 0.3);
+}
+
+.premium-loader-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: pulseText 2s ease-in-out infinite;
+}
+
+@keyframes spinRing {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseText {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(123, 44, 191, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 44, 191, 0.5);
+}
+
+/* ===== Smooth Page Transitions ===== */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Card Statistic Value Animations ===== */
+.ant-statistic-content {
+  transition: color 0.3s ease;
+}
+
+/* ===== Ant Sider inner bg ===== */
+.ant-layout-sider-children {
+  background: transparent !important;
+}
+
+/* ===== Result icon override ===== */
+.ant-result-icon>.anticon {
+  color: var(--accent-purple) !important;
+}
