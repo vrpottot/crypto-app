@@ -10,7 +10,7 @@ import {
   DatePicker,
   Result,
 } from 'antd'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useCrypto } from '../context/crypto-context'
 import CoinInfo from './CoinInfo'
 
@@ -29,7 +29,16 @@ export default function AddAssetForm({ onClose }) {
   const { crypto, addAsset } = useCrypto()
   const [coin, setCoin] = useState(null)
   const [submitted, setSubmitted] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const assetRef = useRef()
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   if (submitted) {
     return (
@@ -103,14 +112,12 @@ export default function AddAssetForm({ onClose }) {
     <Form
       form={form}
       name="basic"
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 10,
-      }}
+      layout={isMobile ? 'vertical' : 'horizontal'}
+      labelCol={isMobile ? undefined : { span: 4 }}
+      wrapperCol={isMobile ? undefined : { span: 10 }}
       style={{
-        maxWidth: 600,
+        maxWidth: '100%',
+        padding: isMobile ? '0.5rem' : '0',
       }}
       initialValues={{
         price: +coin.price.toFixed(2),
@@ -152,7 +159,12 @@ export default function AddAssetForm({ onClose }) {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button 
+          type="primary" 
+          htmlType="submit"
+          size={isMobile ? 'large' : 'default'}
+          block={isMobile}
+        >
           Add Asset
         </Button>
       </Form.Item>

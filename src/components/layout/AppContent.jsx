@@ -7,7 +7,7 @@ const contentStyle = {
   textAlign: 'center',
   minHeight: 'calc(100vh - 60px)',
   color: '#fff',
-  padding: '2rem 2.5rem',
+  padding: 'clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 2.5rem)',
 }
 
 export default function AppContent() {

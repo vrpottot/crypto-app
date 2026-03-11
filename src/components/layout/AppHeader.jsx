@@ -3,11 +3,12 @@ import { useCrypto } from '../../context/crypto-context'
 import { useEffect, useState } from 'react'
 import CoinInfoModal from '../CoinInfoModal'
 import AddAssetForm from '../AddAssetForm'
+import { MenuOutlined } from '@ant-design/icons'
 
 const headerStyle = {
   width: '100%',
   height: 64,
-  padding: '0 2rem',
+  padding: '0 1rem',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -43,12 +44,22 @@ const logoTextStyle = {
   color: '#f0f0f5',
 }
 
-export default function AppHeader() {
+export default function AppHeader({ onMenuClick, showMenu }) {
   const [select, setSelect] = useState(false)
   const [coin, setCoin] = useState(null)
   const [modal, setModal] = useState(false)
   const [drawer, setDrawer] = useState(false)
+  const [drawerWidth, setDrawerWidth] = useState(600)
   const { crypto } = useCrypto()
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDrawerWidth(window.innerWidth <= 768 ? '100%' : 600)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const keypress = (event) => {
@@ -67,14 +78,22 @@ export default function AppHeader() {
 
   return (
     <Layout.Header style={headerStyle}>
-      <Space size="large" align="center">
+      <Space size="middle" align="center">
+        {showMenu && (
+          <Button 
+            type="text" 
+            icon={<MenuOutlined />} 
+            onClick={onMenuClick}
+            style={{ color: '#f0f0f5', fontSize: '1.2rem' }}
+          />
+        )}
         <div style={logoStyle}>
           <div style={logoDotStyle} />
           <span style={logoTextStyle}>CryptoFolio</span>
         </div>
 
         <Select
-          style={{ width: 250 }}
+          style={{ width: '100%', maxWidth: 250, minWidth: 140 }}
           open={select}
           onSelect={handleSelect}
           onClick={() => setSelect((prev) => !prev)}
@@ -106,7 +125,7 @@ export default function AppHeader() {
       </Modal>
 
       <Drawer
-        width={600}
+        width={drawerWidth}
         title="Add Asset"
         onClose={() => setDrawer(false)}
         open={drawer}
