@@ -5,9 +5,10 @@ import AssetsTable from '../AssetsTable'
 
 const contentStyle = {
   textAlign: 'center',
-  minHeight: 'calc(100vh - 60px)',
+  minHeight: 'calc(100vh - 64px)',
   color: '#fff',
   padding: 'clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 2.5rem)',
+  overflow: 'hidden',
 }
 
 export default function AppContent() {

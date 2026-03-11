@@ -379,23 +379,29 @@ h6,
   }
 }
 
-/* ===== Custom Scrollbar ===== */
+/* ===== Hide Scrollbars ===== */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(123, 44, 191, 0.3);
-  border-radius: 3px;
+/* For Firefox */
+* {
+  scrollbar-width: none;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(123, 44, 191, 0.5);
+/* For IE/Edge */
+* {
+  -ms-overflow-style: none;
 }
 
 /* ===== Smooth Page Transitions ===== */
